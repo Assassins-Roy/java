@@ -1,0 +1,31 @@
+package thread;
+
+public class Racer {
+private static String winner;
+public void run() {
+	for(int steps=1;steps<=100;steps++) {
+		System.out.println(Thread.currentThread().getName()+steps);
+		boolean flag=gameOver(steps);
+		if(flag) {
+			break;
+		}
+	}
+}
+private boolean gameOver(int steps) {
+	if(winner!=null) {
+		return true;
+		
+	}else {
+		if(steps==100) {
+			winner=Thread.currentThread().getName();
+			System.out.println("winner==>"+winner);
+			return true;
+		}
+	}return false;
+}
+public static void main(String[] srgs) {
+	Racer racer=new Racer();
+	new Thread(racer,"tortoise").start();
+	new Thread(racer,"rabbit").start();
+}
+}
